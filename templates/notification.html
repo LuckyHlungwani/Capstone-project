@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .notification-item {
+            background-color: #ffefef;
+            border-left: 5px solid #f44336;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .notification-item h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .notification-item p {
+            margin: 5px 0;
+        }
+
+        .notification-item small {
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Weather and Crop Alerts</h1>
+    </header>
+
+  <main>
+    <!-- Notifications List -->
+    <div id="notifications-list">
+        {% if notifications %}
+            {% for notification in notifications %}
+                <div class="notification-item">
+                    <h3>{{ notification.type }} Alert</h3>
+                    <p>{{ notification.message }}</p>
+                    <small>{{ notification.timestamp }}</small>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No alerts available.</p>
+        {% endif %}
+    </div>
+</main>
+
+</body>
+</html>

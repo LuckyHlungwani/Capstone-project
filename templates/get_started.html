@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        /* General Styles */
+        body {
+            /* Use a gradient background for a more vibrant look */
+            /* background: linear-gradient(to right, #9dcaa7, #77a56d);  */
+            display: flex; /* Enable flexbox */
+            flex-direction: column; /* Stack elements vertically */
+            min-height: 100vh; /* Minimum height to fill the viewport */
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Align header and main content */
+        header {
+            text-align: center;
+        }
+
+        main {
+            flex: 1; /* Allow main to grow and fill available space */
+            display: flex; /* Enable flexbox */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            text-align: center; /* Center text within the main section */
+        }
+
+        /* Header */
+        .header {
+            background-color: green;
+            color: #fff;
+            padding: 20px;
+            border-bottom: 3px solid #388E3C; /* Darker Green */
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .header h2 {
+            margin: 10px 0;
+            font-size: 1.5em;
+        }
+
+        /* Buttons */
+        .get-started-btn {
+            background: rgb(55, 139, 55); /* Vibrant Green */
+            border: none;
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            text-decoration: none; /* Ensures the button is styled correctly */
+        }
+
+        .get-started-btn:hover {
+            background: #2bdae0; /* Darker Green */
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(52, 58, 64, 0.7); /* Dark background with 70% opacity */
+            color: #fff; /* White text for visibility */
+            text-align: center;
+            padding: 10px 0; /* Padding for spacing */
+        }
+
+        /* Responsive Image Styles */
+        @media (max-width: 576px) { /* Small devices */
+            .responsive-img {
+                width: 100%; /* Full width on small devices */
+                max-width: 150px; /* Max width for smaller images */
+            }
+        }
+    </style>
+    
+</head>
+
+<body>
+
+    <header class="header">
+        <h1>Welcome to Crop Disease Classifier</h1>
+        <h2>Your Guide to Healthy Crops</h2>
+    </header>
+
+    <main class="container my-5">
+        <section>
+            <!-- <img src="/static/crop.jpg" alt="Crop Disease Detector Logo" class="img-fluid mb-4 responsive-img"> -->
+            <h2>Get Started With Our App</h2>
+            <p>We’re excited to help you manage your crops and ensure their health. Click the button below to begin using our app.</p>
+            <a href="{{ url_for('login') }}" class="get-started-btn">Get Started</a>
+        </section>
+    </main>
+
+    <footer class="text-white text-center py-3">
+        <p>&copy; 2024 Crop Disease Classifier. All rights reserved.</p>
+    </footer>
+
+    <script src="/static/bootstrap/js/jquery-3.4.1.slim.min.js"></script>
+    <script src="/static/bootstrap/js/popper.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

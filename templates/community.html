@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Discussions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/static/event_102949_original-2.png');
+            background-size: cover;
+            background-attachment: fixed;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #0f0f0f;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 40px;
+            padding-bottom: 10px;
+            font-size: 1.75em;
+            color: #444;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 5px 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        form {
+            width: 95%;
+            max-width: 800px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        textarea {
+            width: 97%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            resize: vertical;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        textarea:focus {
+            border-color: #2bcc46;
+            outline: none;
+            box-shadow: 0 0 8px rgba(43, 204, 70, 0.5);
+        }
+
+        button {
+            background-color: #2bcc46;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            max-width: 200px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        button:hover {
+            background-color: #249b38;
+        }
+
+        .discussion {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .discussion h3 {
+            color: #007bff;
+            margin-top: 0;
+            font-size: 1.5em;
+            background-color: rgba(240, 240, 255, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .discussion p {
+            margin: 8px 0;
+        }
+
+        .discussion .comments {
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        .comment {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comment:last-child {
+            border-bottom: none;
+        }
+
+        .comment strong {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        small {
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .btn-small {
+            font-size: 0.9em;
+            padding: 8px 12px;
+        }
+
+        .back-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            button {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+
+            .discussion h3 {
+                font-size: 1.3em;
+            }
+
+            textarea {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.75em;
+                padding: 8px;
+            }
+
+            h2 {
+                font-size: 1.25em;
+                padding: 5px 10px;
+            }
+
+            button {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .discussion h3 {
+                font-size: 1.2em;
+            }
+
+            textarea {
+                font-size: 13px;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Community Discussions</h1>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul>
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('community') }}" method="POST">
+        <textarea name="content" rows="4" required placeholder="Share your thoughts..."></textarea>
+        <button type="submit" class="btn">Post Discussion</button>
+    </form>
+    
+    <h2>Recent Discussions</h2>
+    {% for discussion in discussions %}
+    <div class="discussion">
+        <h3>{{ discussion['title'] }}</h3>
+        <p>Posted by: <strong>{{ discussion['username'] }}</strong></p>
+        <p>{{ discussion['content'] }}</p>
+        <p><small>Posted on: {{ discussion['timestamp'] }}</small></p>
+        
+        <h4>Comments:</h4>
+        <div class="comments">
+            {% for comment in comments[discussion['id']] %}
+            <div class="comment">
+                <strong>{{ comment['username'] }}</strong>: {{ comment['content'] }}
+                <small>{{ comment['local_time'] }}</small>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <form method="POST" action="{{ url_for('post_comment', discussion_id=discussion['id']) }}">
+            <textarea name="content" rows="2" placeholder="Add a comment..."></textarea>
+            <button type="submit" class="btn btn-small">Comment</button>
+        </form>
+    </div>
+    {% endfor %}
+    
+    <div class="back-button">
+        <button class="btn-small" onclick="window.history.back();">Back</button>
+    </div>
+</body>
+
+</html>

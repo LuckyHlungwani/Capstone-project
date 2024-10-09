@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Image & Get Disease Classified</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: url('/static/blue-sky.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .upload-camera-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .file-label,
+    .file-submit {
+      margin-top: 1em;
+      height: 50px;
+      width: 150px;
+      border-radius: 25px;
+      background-color: #257728;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s;
+    }
+
+    .file-label:hover,
+    .file-submit:hover {
+      background-color: #45a049;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .preview-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      width: 100%; /* Full width */
+    }
+
+    .preview-container img {
+      max-width: 90%; /* Resize to fit the container */
+      max-height: 300px; /* Limit height */
+      height: auto;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .loading-spinner {
+      display: none;
+      text-align: center;
+    }
+
+    .home-button {
+      background-color: rgba(59, 145, 59, 0.5);
+      color: white;
+      padding: 10px; /* Adjust padding */
+      border: none;
+      border-radius: 50%;
+      text-decoration: none;
+      transition: background-color 0.3s;
+      display: flex; /* Flexbox for centering */
+      align-items: center; /* Center vertically */
+      justify-content: center; /* Center horizontally */
+      margin: 20px auto;
+      width: 60px;
+      height: 60px;
+      font-size: 14px; /* Adjust font size */
+      line-height: 1; /* Adjust line height */
+    }
+
+    .home-button:hover {
+      background-color: rgba(224, 85, 178, 0.7);
+    }
+
+    .error-message {
+      color: red;
+      text-align: center;
+      animation: shake 0.5s;
+    }
+
+    @keyframes shake {
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      20% {
+        transform: translateX(-10px);
+      }
+
+      40% {
+        transform: translateX(10px);
+      }
+
+      60% {
+        transform: translateX(-5px);
+      }
+
+      80% {
+        transform: translateX(5px);
+      }
+    }
+
+    /* New Styles for Capture Button */
+    .capture-button {
+      display: none; /* Initially hidden */
+      margin-top: 10px;
+      border-radius: 25px;
+      background-color: #257728;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 10px 20px; /* Adjust padding for better appearance */
+      transition: background-color 0.3s;
+    }
+
+    .capture-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h1 class="text-center title">Upload Image & Get Disease Classified</h1>
+    </div>
+
+    <div class="upload-camera-container">
+      <form id="upload-form" action="/classify" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+        <input type="file" name="file" id="file-input" class="file-input" accept="image/*" />
+        <label for="file-input" class="file-label">
+          <i class="fas fa-upload"></i> Add Image
+        </label>
+
+        <button type="button" id="take-photo" class="file-label">
+          <i class="fas fa-camera"></i> Take Photo
+        </button>
+
+        <!-- Capture button for webcam -->
+        <button type="button" id="capture-button" class="capture-button">Capture</button>
+
+        <input type="submit" id="classify-button" value="Classify" class="file-label" />
+      </form>
+
+      <p class="error-message" id="error-message" style="display:none;"></p>
+
+      <div class="preview-container" id="preview-container">
+        <img id="image-preview" src="#" alt="Image Preview" style="display:none;" />
+      </div>
+    </div>
+  </div>
+
+  <div class="home-page">
+    <a href="{{ url_for('home') }}" class="home-button">Home</a>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+  <script>
+    // JavaScript for image preview
+    const fileInput = document.getElementById('file-input');
+    const imagePreview = document.getElementById('image-preview');
+    const takePhotoButton = document.getElementById('take-photo');
+    const captureButton = document.getElementById('capture-button');
+
+    function showImagePreview(file) {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        imagePreview.src = event.target.result;
+        imagePreview.style.display = 'block'; // Show the image
+      }
+      reader.readAsDataURL(file); // Convert to base64 string
+    }
+
+    // Preview the selected file from file input
+    fileInput.addEventListener('change', function () {
+      const file = this.files[0];
+      if (file) {
+        showImagePreview(file);
+      }
+    });
+
+    // Function to capture photo using the webcam
+    function capturePhoto() {
+      const constraints = {
+        video: true
+      };
+
+      // Access the camera
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then(function (stream) {
+          const video = document.createElement('video');
+          video.autoplay = true;
+          video.srcObject = stream;
+
+          // Append video to the document
+          document.body.appendChild(video);
+
+          // Show capture button
+          captureButton.style.display = 'block';
+
+          captureButton.addEventListener('click', function () {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Stop the video stream
+            stream.getTracks().forEach(track => track.stop());
+            video.remove();
+
+            // Display the captured image
+            const imgData = canvas.toDataURL('image/png');
+            imagePreview.src = imgData;
+            imagePreview.style.display = 'block'; // Show the image
+          });
+        })
+        .catch(function (error) {
+          console.error("Error accessing the camera: ", error);
+        });
+    }
+
+    // Capture photo when the button is clicked
+    takePhotoButton.addEventListener('click', function() {
+      capturePhoto();
+      // Hide the take photo button after it has been clicked
+      takePhotoButton.style.display = 'none';
+    });
+
+    // Validate the form before submission
+    function validateForm() {
+      const errorMessage = document.getElementById('error-message');
+      if (!fileInput.files.length && !imagePreview.src) {
+        errorMessage.textContent = "Please upload an image or take a photo.";
+        errorMessage.style.display = "block";
+        return false; // Prevent form submission
+      }
+      errorMessage.style.display = "none"; // Hide error message
+      return true; // Allow form submission
+    }
+  </script>
+</body>
+
+</html>
