@@ -12,4 +12,7 @@ zipp==3.20.2
 tensorflow==2.13.0
 Pillow
 pandas
+Flask
+
+
 
