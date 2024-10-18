@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recent Activities</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body {
+            background: url('/static/globalagriculture_0.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        footer {
+            margin-top: 18.5em;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .button,
+        .btn {
+            background-color: #21d84f;
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 150px;
+            height: 45px;
+            margin: 5px;
+        }
+
+        .button:hover,
+        .btn:hover {
+            background-color: #18e2d8;
+            transform: scale(1.05);
+        }
+
+        .table {
+            background-color: #ffffff;
+        }
+
+        .table thead {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .table tbody tr {
+            background-color: #9ec3e4;
+            transition: background-color 0.3s;
+        }
+
+        .table tbody tr:hover {
+            background-color: #e0f7fa;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #e6f7ff;
+        }
+
+        /* Media query for small devices */
+        @media (max-width: 768px) {
+            .table-responsive {
+                border: 0;
+            }
+
+            .table thead {
+                display: none;
+            }
+
+            .table tbody tr {
+                display: block;
+                margin-bottom: 20px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 10px;
+                background-color: white;
+            }
+
+            .table tbody tr td {
+                display: flex;
+                justify-content: space-between;
+                padding: 10px;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .table tbody tr td:last-child {
+                border-bottom: 0;
+            }
+
+            .table tbody tr td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                flex-basis: 40%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mb-4 text-center">Recent Activities Tracker</h1>
+        <div class="table-responsive">
+            <table class="table table-striped" id="activitiesTable">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Filename</th>
+                        <th>Disease</th>
+                        <th>Confidence Score</th>
+                        <th>Recommendations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for classification in classifications %}
+                    <tr>
+                        <td data-label="Date">{{ classification[2] }}</td> <!-- Adjust index if necessary -->
+                        <td data-label="Filename">{{ classification[3] }}</td> <!-- Adjust index if necessary -->
+                        <td data-label="Disease">{{ classification[4] }}</td> <!-- Adjust index if necessary -->
+                        <td data-label="Confidence Score">{{ classification[5] }}%</td>
+                        <!-- Adjust index if necessary -->
+                        <td data-label="Recommendations">{{ classification[6] }}</td> <!-- Adjust index if necessary -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <a href="{{ url_for('home') }}" class="button"><i class="fas fa-arrow-left"></i> Back</a>
+        <button id="clear-activities" class="btn"><i class="fas fa-trash"></i> Clear Activities</button>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2024 Crop Disease Classifier. All rights reserved.</p>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script>
+        // Clear activities button functionality
+        document.getElementById('clear-activities').addEventListener('click', function () {
+            fetch('/clear_table', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        alert(data.message);
+                        location.reload();
+                    } else {
+                        alert('Error clearing records: ' + data.error);
+                    }
+                });
+        });
+    </script>
+</body>
+
+</html>

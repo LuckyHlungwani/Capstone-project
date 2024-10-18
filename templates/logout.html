@@ -1,0 +1,49 @@
+<!-- templates/logout.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logged Out</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>You have been logged out</h1>
+        <p>Thank you for using our application. You can <a href="{{ url_for('login') }}">log in</a> again to continue.
+</p>
+        <!-- Form for logout with POST method -->
+        <form action="{{ url_for('logout') }}" method="POST" id="logoutForm">
+            <button type="submit" class="btn">Logout</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Sidebar Toggle
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+
+            sidebarToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('show');
+                mainContent.classList.toggle('show');
+            });
+
+            // Logout functionality
+            const logoutLink = document.getElementById('logoutLink');
+            logoutLink.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent default anchor click behavior
+
+                if (confirm('Are you sure you want to log out?')) {
+                    window.location.href = logoutLink.getAttribute('href'); // Redirect to the logout route
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

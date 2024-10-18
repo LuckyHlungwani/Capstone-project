@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maize Crop Classifier</title>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: url('/static/reco.webp') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 0;
+            margin-bottom: 1em;
+            text-align: center;
+        }
+
+        .container {
+            flex: 1;
+            max-width: 1000px;
+            max-height: 90vh; /* Allow for scrolling */
+            margin: 0 auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            overflow: auto; /* Enable scrolling */
+            margin-top: 0.2em;
+        }
+
+        .container:hover {
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        h5 {
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .upload-camera-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background-color: green;
+        }
+
+        .details {
+            padding-top: 20px;
+        }
+
+        .more-info {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .text-center {
+            margin-top: 20px;
+        }
+
+        /* Style for the triangle button */
+        .more-btn {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 35px solid #7817b8;
+            background-color: transparent;
+            padding: 0;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        /* Rotate the triangle when clicked */
+        .more-btn.active {
+            transform: rotate(180deg);
+        }
+
+        /* Responsive design adjustments */
+        @media (max-width: 576px) {
+            .container {
+                max-width: 100%;
+                padding: 20px;
+            }
+
+            .crop-img {
+                max-width: 100%; /* Make the image responsive */
+                height: auto; /* Maintain aspect ratio */
+            }
+
+            .details {
+                text-align: left;
+            }
+
+            .recommendation {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="text-center title">Classify Disease & Get Treatment Recommendations</h1>
+    </div>
+
+    <div class="container">
+        <div class="row disease-details">
+            <div class="col-sm-6" style="margin: 0;">
+                <img src="{{ user_image }}" alt="User Image" class="crop-img rounded">
+            </div>
+            <div class="col-sm-6 details">
+                <p><b>Disease name: </b>{{ disease_name }}</p>
+                <p><b>Confidence Score: </b>{{ accuracy }}%</p>
+                <p class="recommendation"><b>Recommendation: </b>{{ preventive_measures }}</p>
+                <div class="text-center">
+                    <button id="moreBtn" class="more-btn" onclick="toggleMoreInfo()"></button>
+                </div>
+                <div class="try-next text-center">
+                    <a href="{{ url_for('upload') }}" class="btn btn-primary">Back</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="more-info" id="more-info">
+            <h5>More Recommendation Treatments:</h5>
+            {% if disease_name == "Cercospora leaf spot (Gray leaf spot)" %}
+            <p>Avoid overhead irrigation and plant in rows with proper spacing to allow airflow, reducing leaf wetness that encourages fungal growth.</p>
+            <p>Rotate crops to avoid planting maize in the same field for consecutive seasons. This helps reduce pathogen buildup in the soil.</p>
+            <p>Use deep tillage to bury infected crop debris, which can harbor the fungus.</p>
+            {% elif disease_name == "Common rust" %}
+            <p>Avoid planting maize in close proximity to other maize crops, as rust spores spread through the wind.</p>
+            <p>Avoid overhead irrigation, which can spread spores and create favorable conditions for rust.</p>
+            <p>Rotate crops annually to break the disease cycle.</p>
+            {% elif disease_name == "Northern Leaf Blight" %}
+            <p>Apply a combination of fungicides if infection is detected early.</p>
+            <p>Ensure proper drainage to prevent water accumulation, which can promote fungal growth.</p>
+            <p>Rotate maize with non-host crops and practice residue management by removing or plowing under infected plant material to reduce the source of inoculum.</p>
+            {% elif disease_name == "Healthy" %}
+            <p>Keep practicing good field hygiene and monitoring for signs of disease.</p>
+            <p>Ensure crop rotation and sanitation of tools and machinery.</p>
+            <p>Keep fields weed-free to reduce competition for resources and prevent pest harborage.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function toggleMoreInfo() {
+            const moreInfo = document.getElementById('more-info');
+            const moreBtn = document.getElementById('moreBtn');
+
+            if (moreInfo.style.display === 'none' || moreInfo.style.display === '') {
+                moreInfo.style.display = 'block';
+                moreBtn.classList.add('active');
+            } else {
+                moreInfo.style.display = 'none';
+                moreBtn.classList.remove('active');
+            }
+        }
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Crop Disease Detector</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            background: url('/static/about.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .header {
+            background-color: rgba(0, 128, 0, 0.7);
+            color: white;
+            padding: 20px 0;
+        }
+
+        .about-us-content {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .about-us-content h2 {
+            color: green;
+            margin-top: 20px;
+        }
+
+        .about-us-content p {
+            margin-bottom: 20px;
+        }
+
+        .contact-info ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contact-info li {
+            margin-bottom: 10px;
+        }
+
+        .contact-info i {
+            margin-right: 10px;
+        }
+
+        .back-button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-secondary {
+            background-color: #0eb824;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #1bbedb;
+        }
+
+        .team {
+            display: none;
+            /* Hide by default */
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .team h2 {
+            color: green;
+            margin-bottom: 20px;
+        }
+
+        .team-member {
+            display: inline-block;
+            width: calc(25% - 30px);
+            margin: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .team-member:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .team-member img {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .team-member h3 {
+            color: green;
+            margin: 5px 0;
+        }
+
+        .team-member p {
+            color: #555;
+            font-style: italic;
+        }
+    </style>
+
+    <script>
+        function toggleTeamSection() {
+            const teamSection = document.getElementById('teamSection');
+            if (teamSection.style.display === 'none' || teamSection.style.display === '') {
+                teamSection.style.display = 'block';
+            } else {
+                teamSection.style.display = 'none';
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <header class="header text-center py-4">
+        <div class="container">
+            <h1>About Us</h1>
+        </div>
+    </header>
+
+    <main class="container my-4">
+        <div class="about-us-content">
+            <h2>Our Mission</h2>
+            <p>We are dedicated to empowering farmers with advanced tools and technology to help them manage their crops
+                more effectively. Our mission is to provide accurate, reliable, and easy-to-use solutions that address
+                the challenges of crop disease management and improve agricultural productivity.</p>
+
+            <h2>Who We Are</h2>
+            <p>We are a team of dedicated students passionate about using technology to help farmers manage crop
+                diseases more effectively. As part of our project, we're building an app that leverages modern
+                technology to detect crop diseases and recommend treatments.
+                Our goal is to provide a practical tool that supports farmers in maintaining healthy crops and improving
+                their yields, even though we are still learning about the agricultural field ourselves.</p>
+
+            <h2>Our Vision</h2>
+            <p>Our vision is to revolutionize the way farmers manage crop diseases by providing accessible and
+                affordable technology that transforms traditional farming practices. We aim to be a trusted partner in
+                the agricultural industry, supporting sustainable farming and enhancing food security globally.</p>
+
+            <h2>Contact Us</h2>
+            <p>If you have any questions or need support, feel free to reach out to us at:</p>
+            <div class="contact-info">
+                <ul>
+                    <li><i class="fa-solid fa-envelope"></i><a
+                            href="mailto:support@cropdiseasedetector.com">support@cropdiseasedetector.com</a></li>
+                    <li><i class="fa-solid fa-phone"></i><a href="tel:+27211234567">+27 21 123 4567</a></li>
+                    <li><i class="fa-solid fa-location-dot"></i>69 Kingsway Ave, Auckland Park, Johannesburg, 2092</li>
+                </ul>
+            </div>
+        </div>
+        <div class="back-button-container">
+            <a href="javascript:history.back()" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+            <button class="btn btn-secondary" onclick="toggleTeamSection()">
+                <i class="fas fa-users"></i> View the Team
+            </button>
+        </div>
+    </main>
+
+    <section id="teamSection" class="team team-container">
+        <h2>Meet the Team</h2>
+        <div class="team-member">
+            <img src="/static/IMG_8932.jpg" alt="Lucky">
+            <h3>Lucky</h3>
+            <p>Back-end Developer</p>
+            <a href="https://github.com/LuckyHlungwani" target="_blank" class="btn btn-outline-success btn-sm">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+        </div>
+        <div class="team-member">
+            <img src="/static/3815cfad-8242-4f76-a8df-717784d69510.jpg" alt="Thandazile">
+            <h3>Thandazile</h3>
+            <p>Front-end Developer</p>
+            <a href="https://github.com/lindokuhlentshangase" target="_blank" class="btn btn-outline-success btn-sm">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+        </div>
+        <div class="team-member">
+            <img src="/static/IMG_8933.jpg" alt="BongiNkosi">
+            <h3>BongiNkosi</h3>
+            <p>UI/UX Designer</p>
+            <a href="https://github.com/BONGINKOSIMBATHATHA" target="_blank" class="btn btn-outline-success btn-sm">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+        </div>
+        <div class="team-member">
+            <img src="/static/IMG_1186.jpg" alt="Halatedzi">
+            <h3>Halatedzi</h3>
+            <p>Project Manager</p>
+            <a href="https://github.com/HalatedziS" target="_blank" class="btn btn-outline-success btn-sm">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+        </div>
+    </section>
+
+
+    <footer class="footer text-center py-4">
+        <p>&copy; 2024 Crop Disease Detector. All rights reserved.</p>
+    </footer>
+
+    <script src="/static/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
