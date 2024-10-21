@@ -1,267 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AgriTech Innovators</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
-<style>
-    /* General Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-body {
-    font-family: 'Raleway', sans-serif;
-    color: #333;
-    background-color: #f9f9f9;
-    line-height: 1.6;
-    overflow-x: hidden;
-}
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-header {
-    background: linear-gradient(to right, #4CAF50, #388E3C);
-    padding: 50px;
-    text-align: center;
-    color: white;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    animation: slideIn 1s ease-out forwards;
-}
+        body {
+            font-family: 'Raleway', sans-serif;
+            /* font-weight: bold; */
+            color: #0c0c0c;
+            background-color: #f5efef;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: url('/static/maize.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
 
-header h1 {
-    font-size: 3em;
-    letter-spacing: 2px;
-    animation: fadeInDown 1.2s ease-out;
-}
-
-.header-content p {
-    font-size: 1.2em;
-    font-weight: 300;
-    margin-top: 10px;
-}
-
-section {
-    padding: 50px;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 1.5s ease-out forwards;
-}
-
-.app-intro, .why-create, .personas {
-    padding: 40px 0;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.app-intro h2, .why-create h2, .personas h2 {
-    font-size: 2.5em;
-    color: #4CAF50;
-    margin-bottom: 20px;
-    animation: fadeInUp 1.2s ease-out forwards;
-}
-
-.app-intro p, .why-create p, .personas p {
-    font-size: 1.2em;
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.8;
-    animation: fadeInUp 1.3s ease-out forwards;
-}
-
-.main-image {
-    max-width: 90%;
-    margin: 30px auto;
-    display: block;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 15px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.main-image:hover {
-    transform: scale(1.05);
-}
-
-/* Personas section */
-.personas {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-}
-
-.persona {
-    background-color: #e0f7fa;
-    width: 45%;
-    padding: 20px;
-    margin: 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-.persona:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
-}
-
-.persona h3 {
-    font-size: 1.8em;
-    margin-bottom: 15px;
-}
-
-/* Team section */
-.team {
-    background-color: #f4f4f9;
-    padding: 50px;
-}
-
-.team h2 {
-    color: #388E3C;
-    margin-bottom: 40px;
-    animation: fadeInUp 1.2s ease-out;
-}
-
-.team-member {
-    display: inline-block;
-    width: 23%;
-    margin: 15px;
-    text-align: center;
-    animation: fadeInUp 1.5s ease-out forwards;
-}
-
-.team-member img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.team-member img:hover {
-    transform: scale(1.1);
-}
-
-.team-member h3 {
-    font-size: 1.5em;
-    margin-bottom: 5px;
-}
-
-.team-member p {
-    font-size: 1.1em;
-    color: #666;
-}
-
-/* Footer */
-footer {
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-/* Team section */
-.team {
-    background-color: #f4f4f9;
-    padding: 50px;
-}
-
-.team h2 {
-    color: #388E3C;
-    margin-bottom: 40px;
-    animation: fadeInUp 1.2s ease-out;
-}
-
-.team-member {
-    display: inline-block;
-    width: 23%;
-    margin: 15px;
-    text-align: center;
-    animation: fadeInUp 1.5s ease-out forwards;
-}
-
-.team-member img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
-    transition: transform 0.3s ease-in-out;
-}
-
-.team-member img:hover {
-    transform: scale(1.1);
-}
-
-.team-member h3 {
-    font-size: 1.5em;
-    margin-bottom: 5px;
-}
-
-.team-member p {
-    font-size: 1.1em;
-    color: #666;
-}
-
-/* Responsive Design for Team Section */
-@media (max-width: 768px) {
-    .team-member {
-        width: 45%;
-        margin: 20px 0;
-    }
-}
-
-@media (max-width: 480px) {
-    .team-member {
-        width: 100%;
-        margin: 10px 0;
-    }
-}
-
-/* Animations and Transitions */
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInDown {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideIn {
-    0% {
-        opacity: 0;
-        transform: translateX(-100%);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
 
 
-</style>
+        header {
+            background: linear-gradient(to right, #4CAF50, #388E3C);
+            padding: 30px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: slideIn 1s ease-out forwards;
+        }
 
+        header h1 {
+            font-size: 2.5em;
+            letter-spacing: 1px;
+            animation: fadeInDown 1.2s ease-out;
+        }
+
+        .header-content p {
+            font-size: 1.1em;
+            font-weight: 300;
+            margin-top: 10px;
+        }
+
+        section {
+            padding: 40px 20px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1.5s ease-out forwards;
+        }
+
+        .app-intro,
+        .why-create,
+        .personas {
+            padding: 30px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .app-intro h2,
+        .why-create h2,
+        .personas h2 {
+            font-size: 2.2em;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            animation: fadeInUp 1.2s ease-out forwards;
+        }
+
+        .app-intro p,
+        .why-create p,
+        .personas p {
+            font-size: 1.1em;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+            animation: fadeInUp 1.3s ease-out forwards;
+        }
+
+        .main-image {
+            max-width: 90%;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .main-image:hover {
+            transform: scale(1.05);
+        }
+
+        /* Personas section */
+        .personas {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #eaf0f1;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .personas h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .persona {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #bee3ee;
+        }
+
+        .persona h3 {
+            color: #4CAF50;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .persona h6 {
+            color: #777;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .persona p {
+            line-height: 1.5;
+            color: #555;
+        }
+
+
+
+        /* Footer */
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {}
+
+        @media (max-width: 480px) {
+
+            header h1 {
+                font-size: 2em;
+            }
+
+            .header-content p {
+                font-size: 1em;
+            }
+
+            .app-intro h2,
+            .why-create h2,
+            .personas h2 {
+                font-size: 1.8em;
+            }
+
+            .app-intro p,
+            .why-create p,
+            .personas p {
+                font-size: 1em;
+            }
+        }
+
+        /* Animations and Transitions */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
 </head>
+
 <body>
     <header>
         <div class="header-content">
@@ -274,17 +241,22 @@ footer {
     <section class="app-intro">
         <h2>About the App</h2>
         <p>
-            The Maize Crop Disease Classifier is an innovative tool designed to assist farmers and agricultural professionals in identifying and managing common maize diseases. By uploading a picture of a maize leaf, the app can accurately classify the condition into one of four categories: <b>Blight</b>, <b>Gray Leaf Spot</b>, <b>Common Rust</b>, or <b>Healthy</b>. In addition to classification, the app provides users with a treatment recommendation tailored to the identified disease.
+            The Maize Crop Disease Classifier is an innovative tool designed to assist farmers and agricultural
+            professionals in identifying and managing common maize diseases. By uploading a picture of a maize leaf, the
+            app can accurately classify the condition into one of four categories: <b>Blight</b>, <b>Gray Leaf Spot</b>,
+            <b>Common Rust</b>, or <b>Healthy</b>. In addition to classification, the app provides users with a
+            treatment recommendation tailored to the identified disease.
         </p>
         <p>
-            Beyond disease diagnosis, the app offers a comprehensive suite of features aimed at improving the farming experience:
-            <ul>
-                <li>Weather forecasts to help farmers plan their crop management activities.</li>
-                <li>Recent activity logs for tracking past disease classifications and treatments.</li>
-                <li>Analytics tools to monitor farm health and productivity over time.</li>
-                <li>A community forum where users can exchange ideas, tips, and experiences.</li>
-                <li>Latest agricultural news and learning resources to keep users informed.</li>
-            </ul>
+            Beyond disease diagnosis, the app offers a comprehensive suite of features aimed at improving the farming
+            experience:
+        <ul>
+            <li>Weather forecasts to help farmers plan their crop management activities.</li>
+            <li>Recent activity logs for tracking past disease classifications and treatments.</li>
+            <li>Analytics tools to monitor farm health and productivity over time.</li>
+            <li>A community forum where users can exchange ideas, tips, and experiences.</li>
+            <li>Latest agricultural news and learning resources to keep users informed.</li>
+        </ul>
         </p>
         <img src="/static/OIP.jpg" alt="Maize Diseases" class="main-image">
     </section>
@@ -292,13 +264,21 @@ footer {
     <section class="why-create">
         <h2>Why We Created It</h2>
         <p>
-            Agriculture plays a crucial role in ensuring food security, and maize is a staple crop in many regions. However, farmers face significant challenges in managing maize diseases that can lead to reduced crop yields. We created this app to empower both farmers and agricultural extension workers by providing a simple, accessible solution for diagnosing and treating maize diseases.
+            Agriculture plays a crucial role in ensuring food security, and maize is a staple crop in many regions.
+            However, farmers face significant challenges in managing maize diseases that can lead to reduced crop
+            yields. We created this app to empower both farmers and agricultural extension workers by providing a
+            simple, accessible solution for diagnosing and treating maize diseases.
         </p>
         <p>
-            The app is designed with two key users in mind: <b>Angel</b>, the farmer, and <b>Lonwabo</b>, the agricultural extension worker. For Angel, the app offers a quick and easy way to diagnose problems on the farm, with instant treatment recommendations that help improve crop health and prevent future losses. For Lonwabo, the app serves as a valuable tool to assist farmers with expert knowledge, providing real-time support through learning resources and data-driven insights.
+            The app is designed with two key users in mind: <b>Angel</b>, the farmer, and <b>Lonwabo</b>, the
+            agricultural extension worker. For Angel, the app offers a quick and easy way to diagnose problems on the
+            farm, with instant treatment recommendations that help improve crop health and prevent future losses. For
+            Lonwabo, the app serves as a valuable tool to assist farmers with expert knowledge, providing real-time
+            support through learning resources and data-driven insights.
         </p>
         <p>
-            Our goal is to bridge the gap between technology and traditional farming practices, fostering healthier crops and more productive farms, ultimately contributing to food security.
+            Our goal is to bridge the gap between technology and traditional farming practices, fostering healthier
+            crops and more productive farms, ultimately contributing to food security.
         </p>
     </section>
 
@@ -306,30 +286,53 @@ footer {
         <h2>Who Can Use This App?</h2>
         <div class="persona">
             <h3>Farmers</h3>
-            <h6>Angel</h6>
-            <p>Angel is a farmer who faces challenges identifying maize diseases on her crops. With the app, she can easily take a picture of her maize plants and get an instant diagnosis. The app’s treatment recommendations help Angel manage the health of her crops, resulting in better yields and reduced crop losses.</p>
+            <h6>Angel (Age: 35)</h6>
+            <p><strong>Background:</strong> Angel has been farming maize for over 10 years and runs a small family farm.
+            </p>
+            <p><strong>Struggles:</strong> She often struggles with identifying diseases in her crops due to lack of
+                training and resources.</p>
+            <p><strong>Solution:</strong> With the app, she can easily take a picture of her maize plants and get an
+                instant diagnosis. The app’s treatment recommendations help Angel manage the health of her crops,
+                resulting in better yields and reduced crop losses.</p>
         </div>
         <div class="persona">
             <h3>Agricultural Extension Workers</h3>
-            <h6>Lonwabo</h6>
-            <p>Lonwabo, as an agricultural extension worker, supports multiple farmers in his community. The app helps him provide fast, accurate disease diagnoses and suggests treatments that are backed by data. Lonwabo can also share educational resources to help farmers understand disease prevention strategies.</p>
+            <h6>Lonwabo (Age: 29)</h6>
+            <p><strong>Background:</strong> Lonwabo has a degree in agricultural science and works with local farmers to
+                improve their crop health.</p>
+            <p><strong>Struggles:</strong> He faces challenges in providing timely and accurate disease diagnoses due to
+                the limited availability of diagnostic tools.</p>
+            <p><strong>Solution:</strong> The app helps him provide fast, accurate disease diagnoses and suggests
+                treatments that are backed by data. Lonwabo can also share educational resources to help farmers
+                understand disease prevention strategies.</p>
         </div>
         <div class="persona">
             <h3>Cooperative Leaders</h3>
-            <h6>Thandi</h6>
-            <p>Thandi leads a local farming cooperative. She uses the app to monitor the health of crops across different farms. By leveraging the analytics tools, she helps the cooperative make informed decisions about planting, disease prevention, and resource allocation.</p>
+            <h6>Thandi (Age: 42)</h6>
+            <p><strong>Background:</strong> Thandi leads a local farming cooperative and has been involved in community
+                farming initiatives for over 15 years.</p>
+            <p><strong>Struggles:</strong> She finds it challenging to monitor crop health across multiple farms,
+                leading to inefficient resource allocation.</p>
+            <p><strong>Solution:</strong> By leveraging the app’s analytics tools, she helps the cooperative make
+                informed decisions about planting, disease prevention, and resource allocation.</p>
         </div>
         <div class="persona">
-            <h3>Agricultural Researchers</h6>
-            <h6>Dumisani</h6>
-            <p>Dumisani is an agricultural researcher focused on improving crop yield through data analysis. The app provides him with valuable insights and historical disease data, enabling him to study disease patterns and recommend larger-scale agricultural improvements.</p>
+            <h3>Agricultural Researchers</h3>
+            <h6>Dumisani (Age: 38)</h6>
+            <p><strong>Background:</strong> Dumisani is an agricultural researcher focused on improving crop yield
+                through data analysis and has a Ph.D. in agricultural studies.</p>
+            <p><strong>Struggles:</strong> He faces difficulties in accessing historical disease data, which hinders his
+                research on disease patterns.</p>
+            <p><strong>Solution:</strong> The app provides him with valuable insights and historical disease data,
+                enabling him to study disease patterns and recommend larger-scale agricultural improvements.</p>
         </div>
     </section>
 
-    
+
 
     <footer>
         <p>&copy; 2024 AgriTech Innovators - Maize Crop Disease Classifier. All rights Reserved</p>
     </footer>
 </body>
+
 </html>

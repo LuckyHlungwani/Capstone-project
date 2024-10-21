@@ -1,0 +1,10 @@
+### Fetch videos
+GET http://127.0.0.1:5000/api/fetch_videos
+Content-Type: application/json
+
+### Login
+POST http://127.0.0.1:5000/login
+Content-Type: application/x-www-form-urlencoded
+
+username=exampleUser&password=examplePassword
+

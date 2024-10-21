@@ -381,7 +381,16 @@ def learning():
 
 @app.route("/news")
 def news():
-    return render_template('news.html')
+    news_api_key = '4caefdce549744848b356bc80b12aef3'  # Use your NewsAPI key here
+    try:
+        response = requests.get(f'https://newsapi.org/v2/everything?q=agriculture&apiKey={news_api_key}')
+        news_data = response.json()  # Parse the JSON response
+        articles = news_data.get('articles', [])  # Extract articles
+        return render_template('news.html', articles=articles)  # Pass articles to the template
+    except Exception as e:
+        print(f"Error fetching news: {e}")
+        return render_template('news.html', articles=[], error="Failed to fetch news.")
+
 
 @app.route("/analytics")
 def analytics():

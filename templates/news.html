@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agriculture News - Crop Disease Detector</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
     <style>
+        /* General Resets */
         html,
         body {
             height: 100%;
             margin: 0;
+            padding: 0;
         }
 
         body {
@@ -30,19 +30,25 @@
             justify-content: center;
             text-align: center;
             position: relative;
+            padding: 20px; 
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.8); 
         }
 
+        /* Button Positioning */
         .btn-news {
             position: absolute;
             top: 10px;
             right: 10px;
         }
 
+        /* Back Button Container */
         .back-button-container {
             text-align: center;
             margin-top: 20px;
         }
 
+        /* Button Styling */
         .btn-secondary {
             background-color: #0eb824;
             border: none;
@@ -60,6 +66,28 @@
         footer {
             margin-top: auto;
         }
+
+        @media (max-width: 768px) {
+            .news-card {
+                min-height: 150px; 
+                padding: 15px; 
+            }
+
+            .btn-secondary {
+                padding: 8px 16px; 
+            }
+        }
+
+        @media (max-width: 576px) {
+            .news-card {
+                min-height: 120px; 
+                padding: 10px; 
+            }
+
+            .btn-secondary {
+                padding: 6px 12px; 
+            }
+        }
     </style>
 </head>
 
@@ -72,7 +100,19 @@
                         <h5 class="card-title">Agriculture News</h5>
                         <p class="card-text">Stay informed with the latest news related to agriculture.</p>
                         <div id="news-info">
-                            <p>Loading news...</p>
+                            {% if articles %}
+                                <ul class="list-unstyled">
+                                    {% for article in articles %}
+                                        <li>
+                                            <a href="{{ article.url }}" target="_blank">{{ article.title }}</a>
+                                            <p>{{ article.description }}</p>
+                                        </li>
+                                        <hr>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>No articles available.</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -89,47 +129,7 @@
         <p>&copy; 2024 Crop Disease Detector. All rights reserved.</p>
     </footer>
 
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/bootstrap/js/jquery-3.4.1.slim.min.js"></script>
-    <script src="/bootstrap/js/popper.min.js"></script>
-    <script>
-        const newsApiKey = '4caefdce549744848b356bc80b12aef3';
-        const newsInfo = document.getElementById('news-info');
-
-        function fetchNews() {
-            fetch(`https://newsapi.org/v2/everything?q=agriculture&apiKey=${newsApiKey}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'ok') {
-                        const articles = data.articles;
-                        let newsHtml = '<ul class="list-unstyled">';
-                        articles.forEach(article => {
-                            newsHtml += `
-                                <li>
-                                    <a href="${article.url}" target="_blank">${article.title}</a>
-                                    <p>${article.description}</p>
-                                </li>
-                                <hr>
-                            `;
-                        });
-                        newsHtml += '</ul>';
-                        newsInfo.innerHTML = newsHtml;
-                    } else {
-                        newsInfo.innerHTML = `<p>Error: ${data.message}</p>`;
-                    }
-                })
-                .catch(error => {
-                    newsInfo.innerHTML = `<p>Error fetching news data.</p>`;
-                    console.error(error);
-                });
-        }
-
-        // Fetch news every 5 minutes (300000 milliseconds)
-        setInterval(fetchNews, 300000);
-
-        // Initial data fetch
-        fetchNews();
-    </script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>

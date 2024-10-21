@@ -72,12 +72,12 @@
       justify-content: center;
       align-items: center;
       margin-top: 20px;
-      width: 100%; /* Full width */
+      width: 100%;
     }
 
     .preview-container img {
-      max-width: 90%; /* Resize to fit the container */
-      max-height: 300px; /* Limit height */
+      max-width: 90%;
+      max-height: 300px;
       height: auto;
       border: 1px solid #ddd;
       border-radius: 8px;
@@ -91,19 +91,19 @@
     .home-button {
       background-color: rgba(59, 145, 59, 0.5);
       color: white;
-      padding: 10px; /* Adjust padding */
+      padding: 10px;
       border: none;
       border-radius: 50%;
       text-decoration: none;
       transition: background-color 0.3s;
-      display: flex; /* Flexbox for centering */
-      align-items: center; /* Center vertically */
-      justify-content: center; /* Center horizontally */
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin: 20px auto;
       width: 60px;
       height: 60px;
-      font-size: 14px; /* Adjust font size */
-      line-height: 1; /* Adjust line height */
+      font-size: 14px;
+      line-height: 1;
     }
 
     .home-button:hover {
@@ -139,9 +139,8 @@
       }
     }
 
-    /* New Styles for Capture Button */
     .capture-button {
-      display: none; /* Initially hidden */
+      display: none;
       margin-top: 10px;
       border-radius: 25px;
       background-color: #257728;
@@ -149,7 +148,7 @@
       border: none;
       cursor: pointer;
       font-size: 16px;
-      padding: 10px 20px; /* Adjust padding for better appearance */
+      padding: 10px 20px;
       transition: background-color 0.3s;
     }
 
@@ -199,7 +198,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
   <script>
-    // JavaScript for image preview
     const fileInput = document.getElementById('file-input');
     const imagePreview = document.getElementById('image-preview');
     const takePhotoButton = document.getElementById('take-photo');
@@ -209,12 +207,11 @@
       const reader = new FileReader();
       reader.onload = function (event) {
         imagePreview.src = event.target.result;
-        imagePreview.style.display = 'block'; // Show the image
+        imagePreview.style.display = 'block';
       }
-      reader.readAsDataURL(file); // Convert to base64 string
+      reader.readAsDataURL(file);
     }
 
-    // Preview the selected file from file input
     fileInput.addEventListener('change', function () {
       const file = this.files[0];
       if (file) {
@@ -222,23 +219,18 @@
       }
     });
 
-    // Function to capture photo using the webcam
     function capturePhoto() {
       const constraints = {
-        video: true
+        video: { facingMode: { exact: 'environment' } } // Use back camera by default
       };
 
-      // Access the camera
       navigator.mediaDevices.getUserMedia(constraints)
         .then(function (stream) {
           const video = document.createElement('video');
           video.autoplay = true;
           video.srcObject = stream;
-
-          // Append video to the document
           document.body.appendChild(video);
 
-          // Show capture button
           captureButton.style.display = 'block';
 
           captureButton.addEventListener('click', function () {
@@ -248,14 +240,12 @@
             const context = canvas.getContext('2d');
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-            // Stop the video stream
             stream.getTracks().forEach(track => track.stop());
             video.remove();
 
-            // Display the captured image
             const imgData = canvas.toDataURL('image/png');
             imagePreview.src = imgData;
-            imagePreview.style.display = 'block'; // Show the image
+            imagePreview.style.display = 'block';
           });
         })
         .catch(function (error) {
@@ -263,23 +253,20 @@
         });
     }
 
-    // Capture photo when the button is clicked
     takePhotoButton.addEventListener('click', function() {
       capturePhoto();
-      // Hide the take photo button after it has been clicked
       takePhotoButton.style.display = 'none';
     });
 
-    // Validate the form before submission
     function validateForm() {
       const errorMessage = document.getElementById('error-message');
       if (!fileInput.files.length && !imagePreview.src) {
         errorMessage.textContent = "Please upload an image or take a photo.";
         errorMessage.style.display = "block";
-        return false; // Prevent form submission
+        return false;
       }
-      errorMessage.style.display = "none"; // Hide error message
-      return true; // Allow form submission
+      errorMessage.style.display = "none";
+      return true;
     }
   </script>
 </body>
