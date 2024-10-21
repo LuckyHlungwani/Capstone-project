@@ -579,5 +579,5 @@ def get_unread_notifications_count(user_id):
     return count
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Default to 5000 if PORT is not set
-    app.run(debug=True, port=port, host='0.0.0.0')  # Listen on all available interfaces
+    port = int(os.environ.get("PORT", 5000))  # Use the PORT environment variable
+    app.run(host='0.0.0.0', port=port, debug=True)  # Bind to all interfaces
